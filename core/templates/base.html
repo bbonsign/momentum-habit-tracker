@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'style/my_style.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bungee&display=swap" rel="stylesheet">
+  <script src="{% static '/js/main.js'%}" defer></script>
   {% block title %}
   <title>Habit Tracker</title>
   {% endblock title %}
@@ -19,9 +20,17 @@
 <body>
 
   <header class='header'>
-    <h1>
-      <a href="{% url 'habits' %}">My Habit Tracker</a>
-    </h1>
+    <div>
+      <h1>
+        <a href="{% url 'habits' %}">My Habit Tracker</a>
+      </h1>
+      <div>
+        <a href="{% url 'add_habit' %}">Add a new habit</a>
+        |
+        <a href="{% url 'add_record' %}">Add a new record</a>
+      </div>
+    </div>
+
     <div class='login-links'>
       {% if user.is_authenticated %}
       <a href="{% url 'habits' %}">Habits</a>
@@ -34,11 +43,7 @@
       {% endif %}
     </div>
 
-    <div>
-      <a href="{% url 'add_habit' %}">Add a new habit</a>
-      |
-      <a href="{% url 'add_record' %}">Add a new record</a>
-    </div>
+
   </header>
 
   {% block content %}

@@ -1,8 +1,8 @@
 :root {
   --main-text-color: rgb(212, 224, 241);
-  --main-bg-color: rgb(118, 173, 245);
+  --main-bg-color: rgb(92, 128, 194);
   --description-color: #288691;
-  --title-color: rgb(32, 102, 182);
+  --title-color: rgb(27, 82, 145);
   --accent-color: rgb(32, 54, 116);
 }
 
@@ -17,16 +17,25 @@ body {
   font-family: 'Comfortaa', sans-serif;
 }
 
-.center {
+.width-container {
+  width: 80%;
+  margin: auto;
+}
+
+.records-container {
   display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  margin-top: 1rem;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 a {
   text-decoration: none;
   color: var(--title-color)
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 input {
@@ -72,44 +81,50 @@ input {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  justify-content: center;
   width: 80%;
-  padding: 2.5rem;
+  padding: 1.5rem;
   margin: auto;
 }
 
-.habit-container {
+.habit-card {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-content: center;
+  flex-flow: column nowrap;
   text-align: center;
-  background-color: whitesmoke;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(125, 169, 207);
+  margin: 1rem .5rem;
+  padding: .5rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.482);
+  width: 27%;
+}
+
+.habit-card:hover {
+  background-color: rgb(97, 151, 199);
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.6);
 }
 
 .title {
   display: flex;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   justify-content: center;
   align-items: center;
+  font-weight: 700;
 }
 
 .description {
-  display: flex;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   line-height: 1.6;
-  justify-content: center;
-  align-items: baseline;
-  margin: 1rem;
+  margin: .5rem;
+  margin-top: 1rem;
 }
 
 .habit-content {
-  display: flex;
-  align-content: center;
+  margin-top: 2rem;
   text-align: center;
-  justify-content: center;
-  flex-flow: column nowrap;
-  align-items: center;
 }
 
 .habit-content h2 {
@@ -121,6 +136,7 @@ input {
 table {
   border: 2px solid #333;
   border-radius: 3px;
+  margin: 2rem;
 }
 
 td {
