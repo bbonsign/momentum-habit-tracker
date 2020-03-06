@@ -25,7 +25,7 @@ class Record(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     date = models.DateField(default=date.today)
     achievement = models.PositiveIntegerField(
-        default=0, help_text='How much/many times do you do your habit?')
+        default=0, help_text='How much/many times did you do your habit?')
     habit = models.ForeignKey(
         Habit, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
     owner = models.ForeignKey(

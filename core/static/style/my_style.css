@@ -39,10 +39,16 @@ input {
   font-family: 'Comfortaa', sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
+  text-align: center;
 }
 
 .submit-button {
   background-color: rgb(26, 137, 170);
+  color: whitesmoke;
+}
+
+.submit-button:hover {
+  background-color: rgb(48, 154, 187);
   color: whitesmoke;
 }
 
@@ -131,4 +137,3 @@ td {
   padding: .2rem;
   text-align: center;
 }
-
