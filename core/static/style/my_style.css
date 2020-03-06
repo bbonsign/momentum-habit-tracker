@@ -1,0 +1,134 @@
+:root {
+  --main-text-color: rgb(212, 224, 241);
+  --main-bg-color: rgb(118, 173, 245);
+  --description-color: #288691;
+  --title-color: rgb(32, 102, 182);
+  --accent-color: rgb(32, 54, 116);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.center {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--title-color)
+}
+
+input {
+  height: 2rem;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.482);
+  margin: .1rem;
+  padding: .2rem .4rem;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.submit-button {
+  background-color: rgb(26, 137, 170);
+  color: whitesmoke;
+}
+
+.header {
+  color: var(--title-color);
+  font-weight: bold;
+  width: 80%;
+  padding: 2.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  border: 10px double var(--main-text-color);
+  border-radius: 70px;
+  margin: auto;
+  margin-top: 2rem;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.482);
+}
+
+.all-habits {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  width: 80%;
+  padding: 2.5rem;
+  margin: auto;
+}
+
+.habit-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  text-align: center;
+  background-color: whitesmoke;
+}
+
+.title {
+  display: flex;
+  margin: 0;
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.description {
+  display: flex;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  justify-content: center;
+  align-items: baseline;
+  margin: 1rem;
+}
+
+.habit-content {
+  display: flex;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.habit-content h2 {
+  white-space: nowrap;
+}
+
+/****** Preliminary Table styling ******/
+
+table {
+  border: 2px solid #333;
+  border-radius: 3px;
+}
+
+td {
+  border: 1px solid #333;
+  border-radius: 3px;
+}
+
+th {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+td {
+  padding: .2rem;
+  text-align: center;
+}
+

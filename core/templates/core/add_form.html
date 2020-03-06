@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<div class="center">
 {% if warning %}
     <p class='warning'>
         That {{type}} already exists.  Would you like to <a href="#">edit it</a>?
@@ -12,9 +13,11 @@
 <form action="" method="post">
     {% csrf_token %}
     <table>
-        {{ form.as_p }}
+        {{ form.as_table }}
     </table>
-    <input type="submit" class="button" value='Submit'>
+    <input type="submit" class="submit-button" value='Submit'>
 </form>
+
+</div>
 
 {% endblock %}
