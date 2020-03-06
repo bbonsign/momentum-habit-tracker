@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Habit(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(
         max_length=64, help_text='The name of your new habit')
     action = models.CharField(
@@ -23,6 +24,7 @@ class Habit(models.Model):
 
 class Record(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     date = models.DateField(default=date.today)
     achievement = models.PositiveIntegerField(
         default=0, help_text='How much/many times did you do your habit?')
@@ -42,10 +44,11 @@ class Record(models.Model):
 
 class Observer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='observations', blank=True, null=True)
     habit = models.ForeignKey(
         Habit, on_delete=models.CASCADE, related_name='observers', blank=True, null=True)
 
     def __str__(self):
-        return f"User: {self.user.pk} watches Habit: {self.habit.pk}"
+        return f"User: {self.user.pk} => Habit: {self.habit.pk} of {self.habit.owner.pk}"
