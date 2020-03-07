@@ -1,5 +1,6 @@
 from datetime import date
 from django.db import models
+from django.db.models import Q, F, CheckConstraint, UniqueConstraint
 
 from django.contrib.auth.models import User
 
@@ -29,9 +30,9 @@ class Log(models.Model):
     achievement = models.PositiveIntegerField(
         default=0, help_text='How much/many times did you do your habit?')
     habit = models.ForeignKey(
-        Habit, on_delete=models.CASCADE, related_name='records')
+        Habit, on_delete=models.CASCADE, related_name='logs')
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='records')
+        User, on_delete=models.CASCADE, related_name='logs')
 
     def __str__(self):
         return f"{self.owner.username}'s {self.habit.title} on {self.date}"
@@ -39,7 +40,7 @@ class Log(models.Model):
     class Meta:
         ordering = ['-date']
         constraints = [models.UniqueConstraint(
-            fields=['date', 'habit', 'owner'], name='unique_record')]
+            fields=['date', 'habit', 'owner'], name='unique_log')]
 
 
 class Observer(models.Model):
@@ -54,5 +55,6 @@ class Observer(models.Model):
         return f"User.{self.observer.pk} => Habit.{self.habit.pk}"
 
     class Meta:
-        constraints = [models.UniqueConstraint(
-            fields=['observer', 'habit'], name='unique_observers')]
+        constraints = [UniqueConstraint(
+            fields=['observer', 'habit'], name='unique_observers'),
+        ]

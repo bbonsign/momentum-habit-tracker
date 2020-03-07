@@ -9,22 +9,18 @@
     <div id='data-holder' data-pk={{habit.pk}} data-owner={{habit.owner.username}} data-user={{user.username}}>
     </div>
 
-
     <div class="habit-logs-container">
 
 
         <div class="habit-container">
             <section class='habit-content'>
                 <h2 class="title">{{habit.title}}</h2>
-                <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
-                <a href="{% url 'add_log'%}?habit={{habit.pk}}">Add log</a>
-                |
-                <a href="{% url 'add_observer' habit.pk%}">Add an observer</a>
+                <p class="description">{{habit.owner.username}}'s goal is {{habit.goal}} {{habit.units}} per day.</p>
             </section>
 
             <section class='observers'>
                 {% if observers %}
-                <h3>Observers you've added to this habit:</h3>
+                <h3>Observers of {{habit.owner.username}}'s habit:</h3>
                 <ul class="observer-list">
                     {% for observer in observers %}
                     <li>{{observer}}</li>

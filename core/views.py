@@ -17,11 +17,15 @@ def habits(request):
 def habit_logs(request, pk):
     user = User.objects.get(username=request.user.username)
     habit = Habit.objects.get(pk=pk)
-    logs = Log.objects.filter(owner=user, habit=habit)
+    owner = habit.owner
+    logs = Log.objects.filter(owner=owner, habit=habit)
     observers = habit.observers.all()
     observers_usernames = [obs.observer.username for obs in observers]
     context = {'logs': logs, 'habit': habit, 'observers': observers_usernames}
-    return render(request, 'core/habit_logs.html', context=context)
+    if user == owner:
+        return render(request, 'core/habit_logs.html', context=context)
+    else:
+        return render(request, 'core/habit_logs_observer.html', context=context)
 
 
 @login_required(login_url='/accounts/login/')
@@ -41,6 +45,7 @@ def add_habit(request):
 
 @login_required(login_url='/accounts/login/')
 def add_log(request):
+    user = User.objects.get(username=request.user.username)
     get_habit_pk = request.GET.get('habit', -1)
     get_date = request.GET.get('date', -1)
     if request.method == "POST":
@@ -61,9 +66,12 @@ def add_log(request):
     else:
         if not(get_date == -1 and get_habit_pk == -1):
             habit = Habit.objects.get(pk=get_habit_pk)
-            form = LogForm(initial={'habit': habit, 'date': get_date})
+            form = LogForm()
+            form.fields['habit'].queryset = user.habits
+            form.initial = {'habit': habit, 'date': get_date}
         else:
             form = LogForm()
+            form.fields['habit'].queryset = user.habits
     context = {'form': form, 'type': 'log'}
     return render(request, 'core/add_form.html', context=context)
 
@@ -87,3 +95,7 @@ def add_observer(request, pk):
     else:
         form = ObserverForm()
     return render(request, 'core/add_form.html', {'form': form})
+
+
+def check_owner(request):
+    pass

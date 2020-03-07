@@ -19,7 +19,7 @@ body {
 
 .width-container {
   width: 80%;
-  margin: auto;
+  margin: 1rem auto;
 }
 
 .habit-logs-container {
