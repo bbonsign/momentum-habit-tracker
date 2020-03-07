@@ -19,6 +19,7 @@
             </section>
 
             <section class='observers'>
+                <a href="{% url 'add_observer' habit.pk%}">Add an observer</a>
                 {% if observers %}
                 <h3>Observers of {{habit.owner.username}}'s habit:</h3>
                 <ul class="observer-list">
