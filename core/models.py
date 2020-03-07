@@ -45,10 +45,10 @@ class Record(models.Model):
 class Observer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='observations', blank=True, null=True)
+    observer = models.ForeignKey(User, on_delete=models.CASCADE,
+                                 related_name='observations', blank=True, null=True)
     habit = models.ForeignKey(
         Habit, on_delete=models.CASCADE, related_name='observers', blank=True, null=True)
 
     def __str__(self):
-        return f"User: {self.user.pk} => Habit: {self.habit.pk} of {self.habit.owner.pk}"
+        return f"User: {self.observer.pk} => Habit: {self.habit.pk} of {self.habit.owner.pk}"
