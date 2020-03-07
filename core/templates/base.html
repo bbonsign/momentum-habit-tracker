@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'style/my_style.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bungee&display=swap" rel="stylesheet">
+  <script src="{% static '/js/moment.min.js'%}" defer></script>
   <script src="{% static '/js/fill-in-dates.js'%}" defer></script>
   {% block title %}
   <title>Habit Tracker</title>
@@ -27,7 +28,7 @@
       <div>
         <a href="{% url 'add_habit' %}">Add a new habit</a>
         |
-        <a href="{% url 'add_record' %}">Add a new record</a>
+        <a href="{% url 'add_log' %}">Add a new log</a>
       </div>
     </div>
 

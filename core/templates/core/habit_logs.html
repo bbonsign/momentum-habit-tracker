@@ -1,0 +1,57 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="logs-container">
+
+    <div id='data-holder' data-pk={{habit.pk}}></div>
+
+    <div class="habit-logs-container">
+
+
+        <div class="habit-container">
+            <section class='habit-content'>
+                <h2 class="title">{{habit.title}}</h2>
+                <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
+                <a href="{% url 'add_log'%}?habit={{habit.pk}}">Add log</a>
+                |
+                <a href="{% url 'add_observer' habit.pk%}">Add an observer</a>
+
+            </section>
+
+            <section class='observers'>
+                {% if observers %}
+                <h3>Observers you've added to this habit:</h3>
+                <ul class="observer-list">
+                    {% for observer in observers %}
+                    <li>{{observer}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Daily logs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Date</td>
+                    <td>Achievement </td>
+                </tr>
+                {% for log in logs %}
+                <tr>
+                    <td class="date" data-date="{{log.date}}">{{log.date}}</td>
+                    <td class="achievement">{{log.achievement}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock content %}

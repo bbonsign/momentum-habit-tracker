@@ -22,16 +22,16 @@ class Habit(models.Model):
         return self.title
 
 
-class Record(models.Model):
+class Log(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     date = models.DateField(default=date.today)
     achievement = models.PositiveIntegerField(
         default=0, help_text='How much/many times did you do your habit?')
     habit = models.ForeignKey(
-        Habit, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
+        Habit, on_delete=models.CASCADE, related_name='records')
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
+        User, on_delete=models.CASCADE, related_name='records')
 
     def __str__(self):
         return f"{self.owner.username}'s {self.habit.title} on {self.date}"
@@ -51,4 +51,8 @@ class Observer(models.Model):
         Habit, on_delete=models.CASCADE, related_name='observers', blank=True, null=True)
 
     def __str__(self):
-        return f"User: {self.observer.pk} => Habit: {self.habit.pk} of {self.habit.owner.pk}"
+        return f"User.{self.observer.pk} => Habit.{self.habit.pk}"
+
+    class Meta:
+        constraints = [models.UniqueConstraint(
+            fields=['observer', 'habit'], name='unique_observers')]

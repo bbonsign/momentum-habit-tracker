@@ -6,9 +6,9 @@
 
   {% for habit in habits %}
   <section class='habit-card'>
-    <h2 class="title"><a href="{% url 'habit_records' habit.pk %}">{{habit.title}}</a></h2>
+    <h2 class="title"><a href="{% url 'habit_logs' habit.pk %}">{{habit.title}}</a></h2>
     <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
-    <a class="button" href="{% url 'habit_record' habit.pk %}">Add record</a>
+    <a class="button" href="{% url 'add_log'%}?habit={{habit.pk}}">Add log</a>
   </section>
   {% endfor %}
 </div>

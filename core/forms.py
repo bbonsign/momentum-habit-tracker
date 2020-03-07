@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Habit, Record, Observer
+from .models import Habit, Log, Observer
 
 
 class HabitForm(forms.ModelForm):
@@ -10,13 +10,13 @@ class HabitForm(forms.ModelForm):
         fields = ('title', 'action', 'goal', 'units',)
 
 
-class RecordForm(forms.ModelForm):
+class LogForm(forms.ModelForm):
 
     class Meta:
-        model = Record
+        model = Log
         fields = ('habit', 'date', 'achievement',)
         widgets = {
-            'date': forms.DateInput(format=('%m/%d/%Y'), attrs={'type': 'date'})
+            'date': forms.DateInput(format=('%m/%d/%Y'), attrs={'type': 'date'}),
         }
 
 
@@ -25,3 +25,6 @@ class ObserverForm(forms.ModelForm):
     class Meta:
         model = Observer
         fields = ('observer',)
+        # widgets = {
+        #     # 'observer': forms.TextInput(queryset=Users.objects.all) attrs={'required': ''})
+        # }

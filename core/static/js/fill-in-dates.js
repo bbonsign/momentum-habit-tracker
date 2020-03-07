@@ -26,7 +26,7 @@ if (initLength > 1) {
 else {
   const titleRow = document.querySelector('tr')
   const rowBelow = document.createElement('tr')
-  rowBelow.innerHTML = `<td></td><td class="achievement"><a href="/add-record?habit=${habitPK}">Add a record</a></td>`
+  rowBelow.innerHTML = `<td></td><td class="achievement"><a href="/add-log?habit=${habitPK}">Add a log</a></td>`
   titleRow.insertAdjacentElement('afterend', rowBelow)
 }
 
@@ -38,6 +38,6 @@ function addRow (prevDay, day) {
   const rowAbove = document.querySelector(`[data-date='${prevDayString}']`).closest('tr')
   const rowBelow = document.createElement('tr')
   rowBelow.innerHTML = `<td class="date" data-date="${dayString}">${dayString}</td>
-  <td class="achievement"><a href="/add-record?habit=${habitPK}&date=${urlDayString}">Add a record</a></td>`
+  <td class="achievement"><a href="/add-log?habit=${habitPK}&date=${urlDayString}">Add a log</a></td>`
   rowAbove.insertAdjacentElement('afterend', rowBelow)
 }
