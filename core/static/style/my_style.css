@@ -59,7 +59,7 @@ input, select {
 }
 
 .submit-button {
-  background-color: rgb(26, 137, 170);
+  background-color: rgb(71, 123, 206);
   color: whitesmoke;
 }
 
@@ -126,6 +126,13 @@ input, select {
   margin-top: .1rem;
 }
 
+.links-container {
+  display: flex;
+  flex-flow: row nowrap;
+  text-align: center;
+  justify-content: center;
+}
+
 .list-describe {
   font-weight: 700;
 }
@@ -168,4 +175,8 @@ th {
 td {
   padding: .2rem;
   text-align: center;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
 }

@@ -8,7 +8,13 @@
   <section class='habit-card'>
     <h2 class="title"><a href="{% url 'habit_logs' habit.pk %}">{{habit.title}}</a></h2>
     <p class="description">My goal is {{habit.action}} {{habit.goal}} {{habit.units}} per day.</p>
-    <a class="button" href="{% url 'add_log'%}?habit={{habit.pk}}">Add log</a>
+    <div class="links-container">
+      <a class="habit-link add" href="{% url 'add_log' %}?habit={{habit.pk}}">Add log</a>
+      |
+      <a class="habit-link delete" href="{% url 'delete_habit' habit.pk %}">Delete habit</a>
+      |
+      <a class="habit-link edit" href="{% url 'edit_habit' habit.pk %}"><i class="material-icons md-18">create</i></a>
+    </div>
   </section>
   {% endfor %}
 </div>
