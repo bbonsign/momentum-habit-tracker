@@ -84,12 +84,12 @@ input, select {
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.482);
 }
 
-.all-habits {
+.habits-page {
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  width: 80%;
+  width: 90%;
   padding: 1.5rem;
   margin: auto;
 }
@@ -105,7 +105,8 @@ input, select {
   padding: .5rem;
   border-radius: 10px;
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.482);
-  width: 27%;
+  min-width: 25%;
+  width: 15rem;
 }
 
 .habit-card:hover {
@@ -114,19 +115,29 @@ input, select {
 }
 
 .title {
-  display: flex;
-  margin: 0;
+  text-align: center;
   font-size: 1.7rem;
-  justify-content: center;
-  align-items: center;
   font-weight: 700;
 }
 
 .description {
   font-size: 1.2rem;
   line-height: 1.6;
-  margin: .5rem;
-  margin-top: 1rem;
+  margin-top: .1rem;
+}
+
+.list-describe {
+  font-weight: 700;
+}
+
+.observer-list ul {
+  list-style: circle;
+  margin-left: 2rem;
+}
+
+.logs-container {
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .habit-content {
@@ -137,8 +148,6 @@ input, select {
 .habit-content h2 {
   white-space: nowrap;
 }
-
-/****** Preliminary Table styling ******/
 
 table {
   border: 2px solid #333;

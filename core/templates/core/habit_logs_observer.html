@@ -43,10 +43,10 @@
                 </tr>
                 {% for log in logs %}
                 <tr>
-                    <td class="date" data-date="{{record.date|date:'Y-m-d'}}">
-                        {{record.date}}
+                    <td class="date" data-date="{{log.date|date:'Y-m-d'}}">
+                        {{log.date}}
                     </td>
-                    <td class="achievement">{{record.achievement}}</td>
+                    <td class="achievement">{{log.achievement}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

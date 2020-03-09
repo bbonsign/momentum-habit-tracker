@@ -2,31 +2,34 @@
 
 {% block content %}
 
-<div class="all-habits">
-
-  {% if observations %}
-  <section class="observer-list">
-    You are an observer for the following habits:
-    <ul>
-      {% for ob in observations %}
-      <li>
-        {{ob.habit.owner.username}}'s
-        <a href="{% url 'habit_logs' ob.habit.pk %}">
-          {{ob.habit.title}}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+<div class="habits-page">
 
   {% for habit in habits %}
   <section class='habit-card'>
     <h2 class="title"><a href="{% url 'habit_logs' habit.pk %}">{{habit.title}}</a></h2>
-    <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
+    <p class="description">My goal is {{habit.action}} {{habit.goal}} {{habit.units}} per day.</p>
     <a class="button" href="{% url 'add_log'%}?habit={{habit.pk}}">Add log</a>
   </section>
   {% endfor %}
 </div>
+
+
+{% if observations %}
+<section class="observer-list">
+  <p class="list-describe">
+    You are an observer for the following habits:
+  </p>
+  <ul>
+    {% for ob in observations %}
+    <li>
+      {{ob.habit.owner.username}}'s
+      <a href="{% url 'habit_logs' ob.habit.pk %}">
+        {{ob.habit.title}}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
 
 {% endblock content %}
