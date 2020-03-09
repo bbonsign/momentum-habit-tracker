@@ -11,6 +11,9 @@ urlpatterns = [
     path('habit-logs/<int:pk>', views.habit_logs, name='habit_logs'),
     path('add-habit/', views.add_habit, name='add_habit'),
     path('add-log/', views.add_log, name='add_log'),
+    path('edit-habit/<int:pk>', views.edit_habit, name='edit_habit'),
+    path('edit-log/', views.edit_log, name='edit_log'),
+    path('delete-habit/<int:pk>', views.delete_habit, name='delete_habit'),
     path('add-observer/<int:pk>', views.add_observer, name='add_observer'),
 ]
 

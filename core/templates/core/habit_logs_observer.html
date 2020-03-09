@@ -19,7 +19,6 @@
             </section>
 
             <section class='observers'>
-                <a href="{% url 'add_observer' habit.pk%}">Add an observer</a>
                 {% if observers %}
                 <h3>Observers of {{habit.owner.username}}'s habit:</h3>
                 <ul class="observer-list">
@@ -44,8 +43,10 @@
                 </tr>
                 {% for log in logs %}
                 <tr>
-                    <td class="date" data-date="{{log.date}}">{{log.date}}</td>
-                    <td class="achievement">{{log.achievement}}</td>
+                    <td class="date" data-date="{{record.date|date:'Y-m-d'}}">
+                        {{record.date}}
+                    </td>
+                    <td class="achievement">{{record.achievement}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

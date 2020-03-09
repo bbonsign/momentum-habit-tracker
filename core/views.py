@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from .models import Habit, Log, Observer
 from .forms import HabitForm, LogForm, ObserverForm
 
@@ -9,7 +10,8 @@ from .forms import HabitForm, LogForm, ObserverForm
 def habits(request):
     user = User.objects.get(username=request.user.username)
     habits = user.habits.all()
-    context = {'habits': habits}
+    observations = user.observations.all()
+    context = {'habits': habits, 'observations': observations}
     return render(request, 'core/habits.html', context=context)
 
 
@@ -78,24 +80,89 @@ def add_log(request):
 
 @login_required(login_url='/accounts/login/')
 def add_observer(request, pk):
+    user = User.objects.get(username=request.user.username)
+    habit = Habit.objects.get(pk=pk)
     if request.method == "POST":
-        form = ObserverForm(request.POST)
-        if form.is_valid():
-            habit = Habit.objects.get(pk=pk)
-            if Observer.objects.filter(observer=User.objects.get(pk=request.POST['observer']), habit=habit):
-                form = ObserverForm()
-                context = {'form': form, 'type': 'observer', 'warning': True}
-                return render(request, 'core/add_form.html', context=context)
-            else:
-                observer = form.save(commit=False)
-                observer.habit = habit
-                observer.save()
-                return redirect('habit_logs', pk)
-        return redirect('habit_logs', pk)
+        try:
+            added_obs = User.objects.get(username=request.POST['observer'])
+        except ObjectDoesNotExist:
+            form = ObserverForm()
+            context = {'form': form, 'type': 'observer',
+                       'message': "That is not a valid username"}
+            return render(request, 'core/add_form.html', context=context)
+
+        if habit.owner != user:
+            return redirect('/')
+        elif added_obs == habit.owner:
+            form = ObserverForm()
+            context = {'form': form, 'type': 'observer',
+                       'message': 'You cannot add yourself as observer'}
+            return render(request, 'core/add_form.html', context=context)
+        elif Observer.objects.filter(observer=added_obs, habit=habit):
+            form = ObserverForm()
+            context = {'form': form, 'type': 'observer',
+                       'message': "You've already added that user as an observer"}
+            return render(request, 'core/add_form.html', context=context)
+        else:
+            observer = Observer(habit=habit, observer=added_obs)
+            observer.save()
+            return redirect('habit_logs', pk)
     else:
         form = ObserverForm()
     return render(request, 'core/add_form.html', {'form': form})
 
 
-def check_owner(request):
-    pass
+
+@login_required(login_url='/accounts/login/')
+def edit_habit(request, pk):
+    user = User.objects.get(username=request.user.username)
+    habit = get_object_or_404(Habit, pk=pk)
+    if habit.owner != user:
+        return redirect('/')
+    if request.method == 'POST':
+        form = HabitForm(request.POST, instance=habit)
+        if form.is_valid():
+            habit = form.save(commit=False)
+            habit.owner = request.user
+            habit.save()
+        return redirect('habit_logs', pk)
+    else:
+        habit = Habit.objects.get(pk=pk)
+        form = HabitForm(instance=habit)
+    context = {'form': form, 'type': 'habit'}
+    return render(request, 'core/add_form.html', context=context)
+
+
+@login_required(login_url='/accounts/login/')
+def edit_log(request):
+    habit_pk = request.GET.get('habit', -1)
+    date = request.GET.get('date', -1)
+    user = User.objects.get(username=request.user.username)
+    habit = get_object_or_404(Habit, pk=habit_pk)
+    if habit.owner != user:
+        return redirect('/')
+    log = get_object_or_404(log, habit=habit, date=date)
+    if request.method == 'POST':
+        form = logForm(request.POST, instance=log)
+        if form.is_valid():
+            log = form.save(commit=False)
+            log.owner = request.user
+            log.save()
+        return redirect('habit_logs', habit_pk)
+    else:
+        # log = log.objects.get(pk=pk)
+        form = logForm(
+            initial={'habit': habit, 'date': date, 'achievement': log.achievement})
+        form.fields['habit'].queryset = user.habits
+    context = {'form': form, 'type': 'log'}
+    return render(request, 'core/add_form.html', context=context)
+
+
+@login_required(login_url='/accounts/login/')
+def delete_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    user = User.objects.get(username=request.user.username)
+    if habit.owner != user:
+        return redirect('/')
+    habit.delete()
+    return redirect('/')
